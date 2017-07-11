@@ -17,56 +17,37 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="631" height="255"/>
+            <rect key="frame" x="0.0" y="0.0" width="356" height="277"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="O2Q-uQ-xde">
-                    <rect key="frame" x="0.0" y="0.0" width="631" height="255"/>
-                    <subviews>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oj5-1w-Oor">
-                            <rect key="frame" x="0.0" y="0.0" width="631" height="40"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="40" id="Kv8-gp-Ba6"/>
-                            </constraints>
-                            <nil key="textColor"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
-                        </textField>
-                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" sectionIndexMinimumDisplayRowCount="4" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="VP7-AU-wgg">
-                            <rect key="frame" x="0.0" y="40" width="631" height="215"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </tableView>
-                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" translatesAutoresizingMaskIntoConstraints="NO" id="lBr-GW-DQq">
-                            <rect key="frame" x="0.0" y="255" width="631" height="0.0"/>
-                            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lBr-GW-DQq" id="4XG-mV-iKn">
-                                <rect key="frame" x="0.0" y="-0.5" width="631" height="0.5"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                            </tableViewCellContentView>
-                        </tableViewCell>
-                    </subviews>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Your Destination" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oj5-1w-Oor">
+                    <rect key="frame" x="0.0" y="0.0" width="356" height="40"/>
                     <constraints>
-                        <constraint firstItem="VP7-AU-wgg" firstAttribute="top" secondItem="oj5-1w-Oor" secondAttribute="bottom" id="8Yc-10-rLo"/>
-                        <constraint firstAttribute="trailing" secondItem="oj5-1w-Oor" secondAttribute="trailing" id="9hT-Uf-2Zx"/>
-                        <constraint firstItem="oj5-1w-Oor" firstAttribute="top" secondItem="O2Q-uQ-xde" secondAttribute="top" id="Dut-pm-2cV"/>
-                        <constraint firstItem="VP7-AU-wgg" firstAttribute="leading" secondItem="O2Q-uQ-xde" secondAttribute="leading" id="T1G-N4-fug"/>
-                        <constraint firstAttribute="trailing" secondItem="VP7-AU-wgg" secondAttribute="trailing" id="Zx8-ts-xMC"/>
-                        <constraint firstItem="oj5-1w-Oor" firstAttribute="leading" secondItem="O2Q-uQ-xde" secondAttribute="leading" id="okC-hy-rN7"/>
-                        <constraint firstAttribute="bottom" secondItem="VP7-AU-wgg" secondAttribute="bottom" id="zMS-gU-lpm"/>
+                        <constraint firstAttribute="height" constant="40" id="Kv8-gp-Ba6"/>
                     </constraints>
-                </stackView>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
+                </textField>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" sectionIndexMinimumDisplayRowCount="4" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="VP7-AU-wgg">
+                    <rect key="frame" x="0.0" y="48" width="356" height="229"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </tableView>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="O2Q-uQ-xde" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="3a9-nn-xmu"/>
-                <constraint firstAttribute="bottom" secondItem="O2Q-uQ-xde" secondAttribute="bottom" id="JpR-sw-M5B"/>
-                <constraint firstItem="O2Q-uQ-xde" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Kva-4G-7e3"/>
-                <constraint firstAttribute="trailing" secondItem="O2Q-uQ-xde" secondAttribute="trailing" id="env-fO-ja4"/>
+                <constraint firstAttribute="trailing" secondItem="VP7-AU-wgg" secondAttribute="trailing" id="002-BX-3YE"/>
+                <constraint firstAttribute="bottom" secondItem="VP7-AU-wgg" secondAttribute="bottom" id="72o-Ia-dbp"/>
+                <constraint firstItem="VP7-AU-wgg" firstAttribute="top" secondItem="oj5-1w-Oor" secondAttribute="bottom" constant="8" id="Q8x-pd-6p9"/>
+                <constraint firstItem="oj5-1w-Oor" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="VuW-aj-BXh"/>
+                <constraint firstItem="oj5-1w-Oor" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="XXo-IR-gnD"/>
+                <constraint firstAttribute="trailing" secondItem="oj5-1w-Oor" secondAttribute="trailing" id="nI9-zx-Hid"/>
+                <constraint firstItem="VP7-AU-wgg" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="yAX-k5-wJi"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-50.5" y="86.5"/>
+            <point key="canvasLocation" x="-8" y="-361.5"/>
         </view>
     </objects>
 </document>

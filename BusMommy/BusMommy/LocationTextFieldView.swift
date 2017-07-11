@@ -16,6 +16,8 @@ class LocationTextFieldView: UIView, UITextFieldDelegate, UITableViewDelegate, U
     @IBOutlet weak var tableView: UITableView!
     
     let reuseIdentifier = "cell"
+    var userLocation: CLLocation?
+    var currentPlaceMarks: [Placemark] = []
     
     
     // MARK: Initializers
@@ -37,10 +39,15 @@ class LocationTextFieldView: UIView, UITextFieldDelegate, UITableViewDelegate, U
         
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.addSubview(view)
+        view.autoresizesSubviews = true
+        
+        tableView.isHidden = true
         
         tableView.dataSource = self
         tableView.delegate = self
         textField.delegate = self
+        
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
     }
     
     func viewFromNibForClass() -> UIView {
@@ -58,7 +65,12 @@ class LocationTextFieldView: UIView, UITextFieldDelegate, UITableViewDelegate, U
         let updatedText = ((textField.text ?? "") as NSString).replacingCharacters(in: range, with: string)
         
         // TODO: geocode and do stuff with the updated text
-        handleGeocode(forQuery: updatedText)
+        if updatedText.characters.count > 5 {
+            handleGeocode(forQuery: updatedText)
+        } else {
+            tableView.isHidden = true
+        }
+        
         
         return true
     }
@@ -76,31 +88,71 @@ class LocationTextFieldView: UIView, UITextFieldDelegate, UITableViewDelegate, U
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // we never display more than the top 4 results
-        return 4
+        return currentPlaceMarks.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        var cell: UITableViewCell! = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier)
-        if (cell == nil) {
-            cell = UITableViewCell(style: .default, reuseIdentifier: reuseIdentifier)
-        }
+        let cell: UITableViewCell! = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier)
         
         // TODO: populate the cell with geocoded results
-        
+        cell.textLabel?.text = currentPlaceMarks[indexPath.row].qualifiedName
         return cell
     }
     
     // MARK: Geocoding
     func handleGeocode(forQuery queryString: String) {
+
         // TODO: implement geocode, populate tableview accordingly
+        let geocoder = Geocoder.shared
+        
+        let options = ForwardGeocodeOptions(query: queryString)
+        options.focalLocation = CLLocation(latitude: 43.472285, longitude: -80.544858)
+        options.autocompletesQuery = true
+        options.allowedScopes = [.all]
+        
+        let _ = geocoder.geocode(options) { (placemarks, attributrion, error) in
+            
+            if (error != nil) {
+                print("error geocoding: \(error!.localizedDescription)")
+                return
+            }
+            
+            if (placemarks == nil) {
+                print("no placemarks")
+                return
+            }
+            
+            self.currentPlaceMarks = placemarks!
+           
+            DispatchQueue.main.async {
+                self.tableView.isHidden = false
+                self.tableView.reloadData()
+            }
+        }
+        
+        
+        
+        
     }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        setupView()
+    }
+    
+    override func prepareForInterfaceBuilder() {
+        super.prepareForInterfaceBuilder()
+        setupView()
+    }
+    
+
 
 }
 
 
 protocol LocationTextFieldViewDelegate {
-    func userEnteredLocation()
+    func userSelectedLocation(_: CLLocationCoordinate2D)
 }
 
 
