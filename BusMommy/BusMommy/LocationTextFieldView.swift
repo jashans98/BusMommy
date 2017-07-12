@@ -18,6 +18,7 @@ class LocationTextFieldView: UIView, UITextFieldDelegate, UITableViewDelegate, U
     let reuseIdentifier = "cell"
     var userLocation: CLLocation?
     var currentPlaceMarks: [Placemark] = []
+    var delegate: LocationTextFieldViewDelegate?
     
     
     // MARK: Initializers
@@ -48,6 +49,9 @@ class LocationTextFieldView: UIView, UITextFieldDelegate, UITableViewDelegate, U
         textField.delegate = self
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
+        
+        
+        
     }
     
     func viewFromNibForClass() -> UIView {
@@ -100,6 +104,14 @@ class LocationTextFieldView: UIView, UITextFieldDelegate, UITableViewDelegate, U
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.delegate?.userEnteredLocation(currentPlaceMarks[indexPath.row].location!)
+        DispatchQueue.main.async {
+            self.textField.text = self.currentPlaceMarks[indexPath.row].name
+            self.tableView.isHidden = true
+        }
+    }
+    
     // MARK: Geocoding
     func handleGeocode(forQuery queryString: String) {
 
@@ -107,7 +119,7 @@ class LocationTextFieldView: UIView, UITextFieldDelegate, UITableViewDelegate, U
         let geocoder = Geocoder.shared
         
         let options = ForwardGeocodeOptions(query: queryString)
-        options.focalLocation = CLLocation(latitude: 43.472285, longitude: -80.544858)
+        options.focalLocation = userLocation!
         options.autocompletesQuery = true
         options.allowedScopes = [.all]
         
@@ -126,6 +138,7 @@ class LocationTextFieldView: UIView, UITextFieldDelegate, UITableViewDelegate, U
             self.currentPlaceMarks = placemarks!
            
             DispatchQueue.main.async {
+                
                 self.tableView.isHidden = false
                 self.tableView.reloadData()
             }
@@ -152,7 +165,7 @@ class LocationTextFieldView: UIView, UITextFieldDelegate, UITableViewDelegate, U
 
 
 protocol LocationTextFieldViewDelegate {
-    func userSelectedLocation(_: CLLocationCoordinate2D)
+    func userEnteredLocation(_: CLLocation)
 }
 
 
