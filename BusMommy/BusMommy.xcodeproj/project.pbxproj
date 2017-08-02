@@ -167,6 +167,7 @@
 				TargetAttributes = {
 					D8BA819C1F15757A004DF414 = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = YP7F53GJE7;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -387,6 +388,7 @@
 			baseConfigurationReference = F5218C655E7130D54DFD5743 /* Pods-BusMommy.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = YP7F53GJE7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -404,6 +406,7 @@
 			baseConfigurationReference = 2481FC004A9965A8C526AC0E /* Pods-BusMommy.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = YP7F53GJE7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

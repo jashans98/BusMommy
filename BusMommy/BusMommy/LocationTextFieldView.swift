@@ -19,6 +19,7 @@ class LocationTextFieldView: UIView, UITextFieldDelegate, UITableViewDelegate, U
     var userLocation: CLLocation?
     var currentPlaceMarks: [Placemark] = []
     var delegate: LocationTextFieldViewDelegate?
+    var submittedDestination: Bool = false
     
     
     // MARK: Initializers
@@ -27,6 +28,11 @@ class LocationTextFieldView: UIView, UITextFieldDelegate, UITableViewDelegate, U
         super.init(frame: frame)
         setupView()
         
+    }
+    
+    func hideTableView() {
+        self.tableView.isHidden = true
+        self.endEditing(true)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -82,7 +88,13 @@ class LocationTextFieldView: UIView, UITextFieldDelegate, UITableViewDelegate, U
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
         if reason == .committed {
             handleGeocode(forQuery: textField.text!)
+            submittedDestination = true
         }
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        submittedDestination = false
+        return true
     }
     
     // MARK: UITableViewDataSource
@@ -105,10 +117,14 @@ class LocationTextFieldView: UIView, UITextFieldDelegate, UITableViewDelegate, U
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.delegate?.userEnteredLocation(currentPlaceMarks[indexPath.row].location!)
+        print("user selected cell")
+        
         DispatchQueue.main.async {
+            self.delegate?.userEnteredLocation(self.currentPlaceMarks[indexPath.row].location!)
             self.textField.text = self.currentPlaceMarks[indexPath.row].name
             self.tableView.isHidden = true
+            
+            self.endEditing(true)
         }
     }
     
